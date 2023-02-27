@@ -1,0 +1,123 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0", 
+      "title": "My User Project CRUD",
+      "description": "My User Project Application API",
+      "license": 
+        {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8002",
+    "basePath": "/",
+    "tags": [
+        {
+        "name": "Users",
+        "description": "API for users in the system"
+        }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/users": {
+            "get": {
+                "description": "Returns all Users from the system that the user has access to",
+                "produces": [
+                "application/json"
+                ],
+                "responses": {
+                "200": {
+                    "description": "A list of Users.",
+                    "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/users"
+                    }
+                    }
+                }
+                }
+            }
+            },
+            "/ajouter" : {
+                "post" : {
+                    "description": "Create new user in system",
+                    "parameters": [
+                        {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                        }
+                    ],
+                    "produces": [
+                        "application/json"
+                        ],
+                    "responses" : {
+                        "200" : {
+                            "description": "New user is created",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/users"
+                                }
+                                }
+                        }
+                    }   
+                }
+            },
+            "/delete/{id}" : {
+                "parameters": [
+                    {
+                      "name": "id",
+                      "in": "path",
+                      "required": true,
+                      "description": "ID of user that we want to find",
+                      "type": "integer"
+                    }
+                  ],
+                "delete" : {
+                    "description": "delete  user in system",
+                    "produces": [
+                        "application/json"
+                        ],
+                    "responses" : {
+                        "200" :{
+                            "description": "New user is created",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/users"
+                                }
+                                }
+                        }
+                    }
+                }
+            }
+        },
+        "definitions":{
+            "user":{
+                "required":[
+                    "name","prenom","age"
+                ],
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "prenom":{
+                        "type":"string"
+                    },
+                    "age":{
+                        "type":"number"
+                    }
+                }
+            },
+            "users":{
+                "$ref": "#/definitions/user"
+            }
+        }
+    }
